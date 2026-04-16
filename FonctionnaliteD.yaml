@@ -6,3 +6,21 @@ info:
 
 servers:
   -url: https://localhost:8080
+
+paths:
+  /collectivites/{collectiviteId}/comptes:
+    get:
+      summary: Consulter la situation des comptes (Caisse, Banques, Mobile Money)
+      operationId: getComptes
+      parameters:
+        - $ref: '#/components/parameters/collectiviteIdParam'
+      responses:
+        '200':
+          description: Liste des comptes et leurs soldes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Compte'
+    
