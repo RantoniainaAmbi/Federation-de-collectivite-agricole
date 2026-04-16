@@ -1,0 +1,98 @@
+NouvelleCollectivite:
+  type: object
+  required: [nom, ville, specialite, autorisationFederation, membresInitiaux]
+  properties:
+    nom: { type: string }
+    ville: { type: string }
+    specialite: { type: string }
+    autorisationFederation: { type: boolean }
+    membresInitiaux:
+      type: array
+      minItems: 10
+      items:
+        type: object
+        properties:
+          membreId: { type: string }
+          poste: { $ref: '#/Poste' }
+
+NouveauMembre:
+  type: object
+  required: [nom, prenoms, dateNaissance, genre, adresse, metier, telephone, email, parrainId, fraisAdhesion]
+  properties:
+    nom: { type: string }
+    prenoms: { type: string }
+    dateNaissance: { type: string, format: date }
+    genre: { type: string, enum: [FEMININ, MASCULIN] }
+    adresse: { type: string }
+    metier: { type: string }
+    telephone: { type: string }
+    email: { type: string, format: email }
+    parrainId: { type: string }
+    fraisAdhesion:
+      type: object
+      properties:
+        paye: { type: boolean }
+        montant: { type: number, example: 50000 }
+        modePaiement: { $ref: '#/ModePaiement' }
+
+Poste:
+  type: string
+  enum: [PRESIDENT, PRESIDENT_ADJOINT, TRESORIER, SECRETAIRE, MEMBRE_CONFIRME, MEMBRE_JUNIOR]
+
+ModePaiement:
+  type: string
+  enum: [ESPECE, VIREMENT_BANCAIRE, MOBILE_MONEY]
+
+Cotisation:
+  type: object
+  required: [membreId, montant, dateEncaissement, modePaiement, type]
+  properties:
+    membreId: { type: string }
+    montant: { type: number }
+    dateEncaissement: { type: string, format: date-time }
+    modePaiement: { $ref: '#/ModePaiement' }
+    type: { type: string, enum: [PERIODIQUE, PONCTUELLE] }
+
+Compte:
+  type: object
+  required: [typeCompte, solde]
+  properties:
+    typeCompte: { type: string, enum: [CAISSE, BANQUE, MOBILE_MONEY] }
+    solde: { type: number }
+    devise: { type: string, default: MGA }
+    titulaire: { type: string }
+    banque: { type: string, enum: [BRED, MCB, BMOI, BOA, BGFI, AFG, ACCES_BANQUE, BAOBAB, SIPEM] }
+    rib: { type: string, pattern: '^\d{23}$' }
+    serviceMobile: { type: string, enum: [Orange Money, Mvola, Airtel Money] }
+    telephoneMobile: { type: string }
+
+Activite:
+  type: object
+  required: [type, date, obligatoirePour]
+  properties:
+    type: { type: string, enum: [AG_MENSUELLE, FORMATION_JUNIOR, EXCEPTIONNELLE] }
+    date: { type: string, format: date-time }
+    obligatoirePour: { type: string, enum: [TOUS, JUNIORS, CERTAINS, AUCUN] }
+    theme: { type: string }
+
+FichePresence:
+  type: object
+  required: [membreId, statut]
+  properties:
+    membreId: { type: string }
+    statut: { type: string, enum: [PRESENT, EXCUSE, ABSENT] }
+    motifExcuse: { type: string }
+    visiteurExterne: { type: boolean, default: false }
+
+StatistiquesGlobales:
+  type: object
+  properties:
+    nombreMembresInscrits: { type: integer }
+    tauxAssiduiteGlobal: { type: number, format: float }
+
+StatistiquesMembre:
+  type: object
+  properties:
+    tauxAssiduite: { type: number, format: float }
+    montantEncaisse: { type: number }
+    montantImpayePotentiel: { type: number }
