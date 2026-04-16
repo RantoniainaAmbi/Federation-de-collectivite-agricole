@@ -25,7 +25,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/FichePresence'
+                $ref: '../components/schemas.yaml#/FichePresence'
       responses:
         '200':
           description: Présences enregistrées

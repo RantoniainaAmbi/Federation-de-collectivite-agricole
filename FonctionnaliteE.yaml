@@ -13,13 +13,13 @@ paths:
       summary: Planifier une nouvelle activité
       operationId: createActivite
       parameters:
-        - $ref: '#/components/parameters/collectiviteIdParam'
+        - $ref: '../components/parameters.yaml#/collectiviteIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Activite'
+              $ref: '../components/schemas.yaml#/Activite'
       responses:
         '201':
           description: Activité planifiée

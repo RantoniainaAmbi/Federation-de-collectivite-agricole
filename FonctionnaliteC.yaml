@@ -13,13 +13,13 @@ paths:
       summary: Enregistrer le paiement d'une cotisation
       operationId: addCotisation
       parameters:
-        - $ref: '#/components/parameters/collectiviteIdParam'
+    -   $ref: '../components/parameters.yaml#/collectiviteIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Cotisation'
+            $ref: '../components/schemas.yaml#/Cotisation'
       responses:
         '201':
           description: Cotisation enregistrée

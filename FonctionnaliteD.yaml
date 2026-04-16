@@ -13,7 +13,7 @@ paths:
       summary: Consulter la situation des comptes (Caisse, Banques, Mobile Money)
       operationId: getComptes
       parameters:
-        - $ref: '#/components/parameters/collectiviteIdParam'
+      - $ref: '../components/parameters.yaml#/collectiviteIdParam'
       responses:
         '200':
           description: Liste des comptes et leurs soldes
@@ -22,19 +22,19 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Compte'
+                  $ref: '../components/schemas.yaml#/Compte'
     
     post:
       summary: Ajouter un nouveau compte à la collectivité
       operationId: addCompte
       parameters:
-        - $ref: '#/components/parameters/collectiviteIdParam'
+        - $ref: '../components/parameters.yaml#/collectiviteIdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Compte'
+              $ref: '../components/schemas.yaml#/Compte'
       responses:
         '201':
           description: Compte créé (Note un seul compte de type CAISSE permis)
