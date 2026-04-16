@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: API Fédération de Collectivités Agricoles
+  version: 1.0.0
+  description: API de gestion pour la digitalisation des processus de la fédération des collectivités agricoles à Madagascar.
+
+servers:
+  -url: https://localhost:8080
+
+paths:
+  /collectivites/{collectiviteId}/membres:
+    post:
+      summary: Admettre un nouveau membre dans une collectivité
+      operationId: addMembre
+      parameters:
+    -   $ref: '../components/parameters.yaml#/collectiviteIdParam'
+      requestBody:
+        required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/NouveauMembre'
+      responses:
+        '201':
+          description: Membre admis avec succès
+        '400':
+          description: Erreur de validation (frais non réglés, parrain invalide)

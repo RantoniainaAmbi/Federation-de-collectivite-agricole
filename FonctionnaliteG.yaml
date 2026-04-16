@@ -6,24 +6,3 @@ info:
 
 servers:
   -url: https://localhost:8080
-
-paths:
-  /collectivites:
-    post:
-      summary: Ouvrir une nouvelle collectivité
-
-      operationId: createCollectivite
-      
-      requestBody:
-        required: true
-      
-        content:
-          application/json:
-            schema:
-              $ref: '../components/schemas.yaml#/NouvelleCollectivite'
-      
-      responses:
-        '201':
-          description: Collectivité créée avec succès
-        '400':
-          description: Conditions non remplies

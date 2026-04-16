@@ -1,0 +1,8 @@
+openapi: 3.0.3
+info:
+  title: API Fédération de Collectivités Agricoles
+  version: 1.0.0
+  description: API de gestion pour la digitalisation des processus de la fédération des collectivités agricoles à Madagascar.
+
+servers:
+  -url: https://localhost:8080
