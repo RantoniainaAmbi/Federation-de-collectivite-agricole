@@ -24,3 +24,17 @@ paths:
                 items:
                   $ref: '#/components/schemas/Compte'
     
+    post:
+      summary: Ajouter un nouveau compte à la collectivité
+      operationId: addCompte
+      parameters:
+        - $ref: '#/components/parameters/collectiviteIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Compte'
+      responses:
+        '201':
+          description: Compte créé (Note un seul compte de type CAISSE permis)
