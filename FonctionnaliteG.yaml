@@ -8,4 +8,54 @@ servers:
   -url: https://localhost:8080
 
 paths:
-  
+  /collectivites/{collectiviteId}/statistiques/assiduite:
+    get:
+  summary: Rapport mensuel global de la collectivité
+  operationId: getStatistiquesGlobales
+  parameters:
+    - $ref: '../components/parameters.yaml#/collectiviteIdParam'
+    - name: mois
+      in: query
+      required: true
+      schema:
+        type: string
+        format: date
+        example: '2026-04'
+  responses:
+    '200':
+      description: Statistiques globales générées
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/StatistiquesGlobales'
+
+  /collectivites/{collectiviteId}/membres/{membreId}/statistiques:
+    get:
+  summary: Statistiques détaillées d'un membre actif
+  operationId: getStatistiquesMembre
+  parameters:
+    - $ref: '../components/parameters.yaml#/collectiviteIdParam'
+    - name: membreId
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: dateDebut
+      in: query
+      required: true
+      schema:
+        type: string
+        format: date
+    - name: dateFin
+      in: query
+      required: true
+      schema:
+        type: string
+        format: date
+  responses:
+    '200':
+      description: Statistiques détaillées du membre
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/StatistiquesMembre'
