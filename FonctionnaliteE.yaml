@@ -6,3 +6,20 @@ info:
 
 servers:
   -url: https://localhost:8080
+
+paths:
+  /collectivites/{collectiviteId}/activites:
+    post:
+      summary: Planifier une nouvelle activité
+      operationId: createActivite
+      parameters:
+        - $ref: '#/components/parameters/collectiviteIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activite'
+      responses:
+        '201':
+          description: Activité planifiée
