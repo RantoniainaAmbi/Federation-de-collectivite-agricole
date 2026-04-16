@@ -6,3 +6,26 @@ info:
 
 servers:
   -url: https://localhost:8080
+
+paths:
+  /activites/{activiteId}/presences:
+    post:
+      summary: Enregistrer la fiche de présence d'une activité
+      operationId: recordPresences
+      parameters:
+        - name: activiteId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/FichePresence'
+      responses:
+        '200':
+          description: Présences enregistrées
