@@ -6,3 +6,20 @@ info:
 
 servers:
   -url: https://localhost:8080
+
+paths:
+  /collectivites/{collectiviteId}/cotisations:
+    post:
+      summary: Enregistrer le paiement d'une cotisation
+      operationId: addCotisation
+      parameters:
+        - $ref: '#/components/parameters/collectiviteIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cotisation'
+      responses:
+        '201':
+          description: Cotisation enregistrée
