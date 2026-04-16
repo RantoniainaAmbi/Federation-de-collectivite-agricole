@@ -1,19 +1,19 @@
 openapi: 3.0.3
 info:
-  title: API Fédération de Collectivités Agricoles
+  title: API Federation of Agricultural Collectives
   version: 1.0.0
-  description: API de gestion pour la digitalisation des processus de la fédération des collectivités agricoles à Madagascar.
+  description: API for management and digitalization of agricultural collective federation processes in Madagascar.
 
 servers:
-  -url: https://localhost:8080
+  - url: https://localhost:8080
 
 paths:
-  /activites/{activiteId}/presences:
+  /activities/{activityId}/attendances:
     post:
-      summary: Enregistrer la fiche de présence d'une activité
-      operationId: recordPresences
+      summary: Record activity attendance sheet
+      operationId: recordAttendances
       parameters:
-        - name: activiteId
+        - name: activityId
           in: path
           required: true
           schema:
@@ -25,7 +25,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '../components/schemas.yaml#/FichePresence'
+                $ref: '../components/schemas.yaml#/AttendanceSheet'
       responses:
         '200':
-          description: Présences enregistrées
+          description: Attendances recorded

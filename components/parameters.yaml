@@ -1,7 +1,7 @@
-collectiviteIdParam:
-  name: collectiviteId
+collectiveIdParam:
+  name: collectiveId
   in: path
   required: true
   schema:
     type: string
-    description: Identifiant unique de la collectivité
+    description: Unique collective identifier

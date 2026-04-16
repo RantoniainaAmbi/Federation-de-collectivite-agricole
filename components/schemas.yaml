@@ -1,98 +1,98 @@
-NouvelleCollectivite:
+NewCollective:
   type: object
-  required: [nom, ville, specialite, autorisationFederation, membresInitiaux]
+  required: [name, city, specialty, federationAuthorization, initialMembers]
   properties:
-    nom: { type: string }
-    ville: { type: string }
-    specialite: { type: string }
-    autorisationFederation: { type: boolean }
-    membresInitiaux:
+    name: { type: string }
+    city: { type: string }
+    specialty: { type: string }
+    federationAuthorization: { type: boolean }
+    initialMembers:
       type: array
       minItems: 10
       items:
         type: object
         properties:
-          membreId: { type: string }
-          poste: { $ref: '#/Poste' }
+          memberId: { type: string }
+          position: { $ref: '#/Position' }
 
-NouveauMembre:
+NewMember:
   type: object
-  required: [nom, prenoms, dateNaissance, genre, adresse, metier, telephone, email, parrainId, fraisAdhesion]
+  required: [name, firstName, dateOfBirth, gender, address, profession, phone, email, sponsorId, adhesionFees]
   properties:
-    nom: { type: string }
-    prenoms: { type: string }
-    dateNaissance: { type: string, format: date }
-    genre: { type: string, enum: [FEMININ, MASCULIN] }
-    adresse: { type: string }
-    metier: { type: string }
-    telephone: { type: string }
+    name: { type: string }
+    firstName: { type: string }
+    dateOfBirth: { type: string, format: date }
+    gender: { type: string, enum: [FEMALE, MALE] }
+    address: { type: string }
+    profession: { type: string }
+    phone: { type: string }
     email: { type: string, format: email }
-    parrainId: { type: string }
-    fraisAdhesion:
+    sponsorId: { type: string }
+    adhesionFees:
       type: object
       properties:
-        paye: { type: boolean }
-        montant: { type: number, example: 50000 }
-        modePaiement: { $ref: '#/ModePaiement' }
+        paid: { type: boolean }
+        amount: { type: number, example: 50000 }
+        paymentMethod: { $ref: '#/PaymentMethod' }
 
-Poste:
+Position:
   type: string
-  enum: [PRESIDENT, PRESIDENT_ADJOINT, TRESORIER, SECRETAIRE, MEMBRE_CONFIRME, MEMBRE_JUNIOR]
+  enum: [PRESIDENT, VICE_PRESIDENT, TREASURER, SECRETARY, CONFIRMED_MEMBER, JUNIOR_MEMBER]
 
-ModePaiement:
+PaymentMethod:
   type: string
-  enum: [ESPECE, VIREMENT_BANCAIRE, MOBILE_MONEY]
+  enum: [CASH, BANK_TRANSFER, MOBILE_MONEY]
 
-Cotisation:
+Contribution:
   type: object
-  required: [membreId, montant, dateEncaissement, modePaiement, type]
+  required: [memberId, amount, collectionDate, paymentMethod, type]
   properties:
-    membreId: { type: string }
-    montant: { type: number }
-    dateEncaissement: { type: string, format: date-time }
-    modePaiement: { $ref: '#/ModePaiement' }
-    type: { type: string, enum: [PERIODIQUE, PONCTUELLE] }
+    memberId: { type: string }
+    amount: { type: number }
+    collectionDate: { type: string, format: date-time }
+    paymentMethod: { $ref: '#/PaymentMethod' }
+    type: { type: string, enum: [PERIODIC, EXCEPTIONAL] }
 
-Compte:
+Account:
   type: object
-  required: [typeCompte, solde]
+  required: [accountType, balance]
   properties:
-    typeCompte: { type: string, enum: [CAISSE, BANQUE, MOBILE_MONEY] }
-    solde: { type: number }
-    devise: { type: string, default: MGA }
-    titulaire: { type: string }
-    banque: { type: string, enum: [BRED, MCB, BMOI, BOA, BGFI, AFG, ACCES_BANQUE, BAOBAB, SIPEM] }
+    accountType: { type: string, enum: [CASH, BANK, MOBILE_MONEY] }
+    balance: { type: number }
+    currency: { type: string, default: MGA }
+    holder: { type: string }
+    bank: { type: string, enum: [BRED, MCB, BMOI, BOA, BGFI, AFG, ACCES_BANQUE, BAOBAB, SIPEM] }
     rib: { type: string, pattern: '^\d{23}$' }
-    serviceMobile: { type: string, enum: [Orange Money, Mvola, Airtel Money] }
-    telephoneMobile: { type: string }
+    mobileService: { type: string, enum: [Orange Money, Mvola, Airtel Money] }
+    mobilePhone: { type: string }
 
-Activite:
+Activity:
   type: object
-  required: [type, date, obligatoirePour]
+  required: [type, date, mandatoryFor]
   properties:
-    type: { type: string, enum: [AG_MENSUELLE, FORMATION_JUNIOR, EXCEPTIONNELLE] }
+    type: { type: string, enum: [MONTHLY_GENERAL_ASSEMBLY, JUNIOR_TRAINING, EXCEPTIONAL] }
     date: { type: string, format: date-time }
-    obligatoirePour: { type: string, enum: [TOUS, JUNIORS, CERTAINS, AUCUN] }
-    theme: { type: string }
+    mandatoryFor: { type: string, enum: [ALL, JUNIORS, SOME, NONE] }
+    topic: { type: string }
 
-FichePresence:
+AttendanceSheet:
   type: object
-  required: [membreId, statut]
+  required: [memberId, status]
   properties:
-    membreId: { type: string }
-    statut: { type: string, enum: [PRESENT, EXCUSE, ABSENT] }
-    motifExcuse: { type: string }
-    visiteurExterne: { type: boolean, default: false }
+    memberId: { type: string }
+    status: { type: string, enum: [PRESENT, EXCUSED, ABSENT] }
+    excuseReason: { type: string }
+    externalVisitor: { type: boolean, default: false }
 
-StatistiquesGlobales:
-  type: object
-  properties:
-    nombreMembresInscrits: { type: integer }
-    tauxAssiduiteGlobal: { type: number, format: float }
-
-StatistiquesMembre:
+GlobalStatistics:
   type: object
   properties:
-    tauxAssiduite: { type: number, format: float }
-    montantEncaisse: { type: number }
-    montantImpayePotentiel: { type: number }
+    registeredMembersCount: { type: integer }
+    globalAttendanceRate: { type: number, format: float }
+
+MemberStatistics:
+  type: object
+  properties:
+    attendanceRate: { type: number, format: float }
+    collectedAmount: { type: number }
+    potentialUnpaidAmount: { type: number }
